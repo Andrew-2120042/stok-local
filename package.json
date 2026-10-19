@@ -1,0 +1,44 @@
+{
+  "name": "stok",
+  "version": "1.0.0",
+  "private": true,
+  "workspaces": [
+    "apps/api",
+    "apps/web",
+    "apps/mcp",
+    "packages/types"
+  ],
+  "scripts": {
+    "setup": "tsx scripts/setup-local.ts",
+    "dev:api": "npm run dev --workspace=apps/api",
+    "dev:web": "npm run dev --workspace=apps/web",
+    "build": "npm run build --workspace=apps/api --workspace=apps/web",
+    "start:api": "npm run start --workspace=apps/api",
+    "start:web": "npm run start --workspace=apps/web",
+    "typecheck": "tsc --noEmit -p apps/api && tsc --noEmit -p apps/web && tsc --noEmit -p apps/mcp && tsc --noEmit -p packages/types",
+    "db:start": "supabase start",
+    "db:stop": "supabase stop",
+    "db:reset": "supabase db reset && npm run seed && npm run seed:sandbox",
+    "db:migrate": "tsx supabase/migrate.ts",
+    "db:bucket": "tsx scripts/create-storage-bucket.ts",
+    "seed": "tsx supabase/seed.ts",
+    "seed:sandbox": "tsx scripts/seed-sandbox.ts",
+    "reembed": "tsx scripts/reembed.ts",
+    "smoke": "tsx scripts/smoke-test.ts",
+    "check:embeddings": "tsx scripts/check-embeddings.ts",
+    "verify": "tsx scripts/verify-phase4.ts",
+    "test:stress": "tsx scripts/stress-test-mega2.ts"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "openai": "^4.52.7",
+    "pg": "^8.12.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.14.9",
+    "@types/pg": "^8.11.6",
+    "supabase": "2.107.0",
+    "tsx": "^4.11.0",
+    "typescript": "^5.4.5"
+  }
+}

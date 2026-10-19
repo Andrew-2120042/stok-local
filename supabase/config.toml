@@ -1,0 +1,53 @@
+project_id = "stok"
+
+[api]
+enabled = true
+port = 54321
+schemas = ["public", "graphql_public"]
+extra_search_path = ["public", "extensions"]
+max_rows = 1000
+
+[db]
+port = 54322
+shadow_port = 54320
+major_version = 15
+
+[db.seed]
+# Products are seeded by `npm run seed` / `npm run seed:sandbox` (TypeScript), not seed.sql.
+enabled = false
+
+[studio]
+enabled = true
+port = 54323
+
+[inbucket]
+enabled = true
+port = 54324
+
+[storage]
+enabled = true
+file_size_limit = "50MiB"
+
+# Created automatically by `supabase start` / `supabase db reset`.
+[storage.buckets.product-images]
+public = true
+file_size_limit = "5MiB"
+allowed_mime_types = ["image/png", "image/jpeg", "image/gif", "image/webp"]
+
+[auth]
+enabled = true
+site_url = "http://localhost:3000"
+additional_redirect_urls = ["https://localhost:3000"]
+jwt_expiry = 3600
+enable_signup = true
+
+[auth.email]
+enable_signup = true
+# Local only: sign-ups get a session immediately (no confirmation email).
+enable_confirmations = false
+
+[functions.generate-embedding]
+verify_jwt = false
+
+[analytics]
+enabled = false
